@@ -1,0 +1,114 @@
+<!-- views/pages/about.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body class="container">
+
+    <main>
+        <br />
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="jumbotron">
+                    <h1>SSRS (Simple Sensor Repository Service) </h1>
+                </div>
+                <div>
+                    <p>This service was designed to facilitate very rapid prototyping by creating a very easy to use
+                        repository for sensor data that any language or technology can use by only issuing basic REST
+                        commands. These REST commands can all be issued by a browser to support simulation.</p>
+                    <p>A sensor publisher simply makes a REST GET request that includes a Category, Sensor Id in the
+                        URL Path, and sensor data in the Query String.</p>
+                    <p>The subscriber can then poll all the sensors for a specific category with an equally simple GET
+                        request.</p>
+                </div>
+                <hr/>
+                <h3>Notes</h3>
+                <ol>
+                    <li>In most cases we would use HTTP verbs such as GET/POST/PUT/DELETE however to facilitate rapid prototyping via making calls in a browser we are only using GET methods.</li>
+                    <li>All REST calls must start with the path <code>/api/sensors</code></li>
+                    <li>Categories are used to oragnize different data sets and must <b>always</b> be appended to the base path <code>/api/sensors</code> as an example the path <code>/api/sensors/motion</code> would access the motion sensors Category</li>
+                    <li>Docker Pull Command <code>docker pull bytemaster/ssrs</code></li>
+                    <li>Source available on GITHub <a href="https://github.com/bytemaster-0xff/ssrs">SSRS</a></li>
+                    <li>Any questions/comments, please contact <a href="mailto:kevinw@software-logistics.com">Kevin D. Wolf</a></li>
+                    <li>Source code published under the <a href="https://github.com/bytemaster-0xff/ssrs/blob/master/LICENSE">Apache 2.0</a> license.</li>
+                    <li>An obvious future expansion for this would be to use integrate a web socket library for to publish sensor data as it is published</li>
+                </ol>
+                <hr />
+                <br />
+                <br />
+                <h3>Examples</h3>
+                <div>
+                    <h4>Sensor Publisher</h4>
+                    <p>A sensor can use The following REST <b>GET</b> request will post data battery voltage
+                        <code>3.5</code>
+                        and status of <code>on</code> to a sensor with sensor id <code>[left]</code> to a
+                        sensor category
+                        <code>[motion]</code>.
+                    </p>
+                    <pre>
+                    <code>
+                        /* 
+                        * Sensor Category: [motion]
+                        * Sensor Id      : [left]
+                        * Sensor Data {status:'on',battery:3.5}
+                        */
+                        GET /api/sensors/motion/left?status=on&battery=3.5
+                    </code>
+                </pre>
+                </div>
+                <br />
+                <br />
+                <h4>Subscriber</h4>
+                <p>A subscriber can pull data by simply invoking a <b>GET</b> request against a category of data. In this case
+                    the subscriber will pull all the sensors within the <code>motion</code> category</p>
+                <pre>
+                    <code>
+                        /*
+                        * Sensor Category: [motion]
+                        */
+                        GET /api/sensors/motion
+
+                        RESPONSE:
+                        [
+                            { 
+                                "status":"on",
+                                "battery":"3.6",
+                                "_id":"left",
+                                "sensorId":"left",
+                                "timeStamp":"2018-10-13T13:44:10.096Z"
+                            },
+                            {
+                                "status":"on",
+                                "battery":"3.6",
+                                "_id":"right",
+                                "sensorId":"right",
+                                "timeStamp":"2018-10-13T13:44:16.533Z"
+                            }
+                        ]
+                    </code>
+                </pre>
+                <br /><br />
+                <h4>Clearing</h4>
+                <p>To clear a data set for a category make a <b>GET</b> request to clear</p>
+                <pre>
+                        <code>
+                            /*
+                            * Sensor Category: [motion]
+                            */
+                            GET /api/sensors/motion/clear
+
+                        </code>
+                   </pre>
+            </div>
+        </div>
+    </main>
+
+   
+
+</body>
+
+</html>
