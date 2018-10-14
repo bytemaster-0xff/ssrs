@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var http = require('http');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
@@ -13,10 +14,12 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(__dirname + '/public'));
 
 app.use('/api/sensors', require('./routes/sensors'));
 
 app.get('/', function(req, res) {res.render('pages/index');});
+app.get('/sim', function(req, res) {res.render('pages/simulator');});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

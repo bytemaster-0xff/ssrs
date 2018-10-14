@@ -1,0 +1,83 @@
+<html>
+
+<head>
+    <% include ../partials/head %>
+    <script>
+        function leftStart() {
+            jQuery.ajax({
+                method: 'GET',
+                url: "/api/sensors/alpha001/set/left?motion=on&battery=3.4"
+            }).done(function() { alert("Status Updated")});
+        }
+
+        function leftStop() {
+            jQuery.ajax({
+                method: 'GET',
+                url: "/api/sensors/alpha001/set/left?motion=off&battery=3.4"
+            }).done(function() { alert("Status Updated")});
+        }
+
+        function rightStart() {
+            jQuery.ajax({
+                method: 'GET',
+                url: "/api/sensors/alpha001/set/right?motion=on&battery=3.4"
+            }).done(function() { alert("Status Updated")});
+        }
+
+        function rightStop() {
+            jQuery.ajax({
+                method: 'GET',
+                url: "/api/sensors/alpha001/set/right?motion=off&battery=3.4"
+            }).done(function() { alert("Status Updated")});
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <a href="/">Home</a>
+        </div>
+        <div class="row">
+            <h1>Motion Detector Simulator</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-5"></div>
+            <img class="col-md-2" src="/images/Sniper.png" />
+            <div class="col-md-5"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-2">
+                <button class="btn-success" onclick="leftStart()">Left - Motion Start</button><br />
+                <button class="btn-danger" onclick="leftStop()">Left - Motion Stop</button>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2">
+                <button class="btn-success" onclick="rightStart()">Right - Motion Start</button><br />
+                <button class="btn-danger" onclick="rightStop()">Right - Motion Stop</button>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/api/sensors/alpha001" target="_blank">Check Current Status</a>&nbsp;&nbsp;&nbsp;<code>/api/sensors/alpha001</code>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <ol>
+                    <li>Start Right Motion Uri -- <code>/api/sensors/alpha001/set/right?motion=on&battery=3.4</code></li>
+                    <li>Stop Right Motion Uri -- <code>/api/sensors/alpha001/set/right?motion=off&battery=3.4</code></li>
+                    <li>Start Left Motion Uri -- <code>/api/sensors/alpha001/set/left?motion=on&battery=3.4</code></li>
+                    <li>Stop Left Motion Uri -- <code>/api/sensors/alpha001/set/left?motion=off&battery=3.4</code></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
